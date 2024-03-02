@@ -12,6 +12,25 @@ export function Products(){
         })
     },[]);
 
+    const saveProduct = ()=>{
+        fetch('https://fullstack-vercel-node-productos.vercel.app/productos',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: 'Producto nuevo',
+                price: 100
+            })
+        })
+        .then(response => response.json())
+        .then(data=> {
+            console.log(data)
+            setProductos([...productos,data])
+        })
+    }
+
+    
     return(
         <div>
             <h1>Products</h1>
@@ -22,6 +41,7 @@ export function Products(){
                     </div>
                 ))
             }
+            <button onClick={saveProduct}>Guardar</button>
         </div>
     )
 }
